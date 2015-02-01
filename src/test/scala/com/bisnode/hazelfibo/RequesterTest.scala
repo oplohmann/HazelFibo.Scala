@@ -46,7 +46,7 @@ class RequesterTest extends AssertionsForJUnit
   
   @Test def startProducer =
   {
-    Producer.Start(producer, consumers.size, List(5, 7, 9, 5, 12, 4, 14, 6, 8, 10, 11, 4, 3))
+    Producer.Start(producer, consumers.size, List(5, 7, 9, 5, 12, 4, 14, 6, 8, 10, 11, 4, 3, 15, 18, 21, 22))
   }
 
 }

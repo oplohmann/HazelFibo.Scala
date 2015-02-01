@@ -13,16 +13,17 @@ class FiboJob(val config: Config, val n: Long) extends Job with Requester
   def run: Unit =
   {
     val existingResult = Option(resultMap.get(n))
-    if(existingResult.isDefined) {
-      responseQueue.add(n, existingResult.get)
-      return
-    }
+    val result = existingResult.getOrElse(calculate)
+    responseQueue.add((n, result))
+  }
 
+  def calculate: Long =
+  {
     val results = new util.TreeSet[Long](resultMap.keySet())
     val nearestLeftMostResult = Option(results.floor(n - 1))
     val nearestRightMostResult = getNearestRightMostResult(n, results, nearestLeftMostResult)
 
-    val result = if(nearestLeftMostResult.isDefined || nearestRightMostResult.isDefined) {
+    val result = if (nearestLeftMostResult.isDefined || nearestRightMostResult.isDefined) {
       fibonacciCached(n, nearestLeftMostResult, nearestRightMostResult)
     }
     else {
@@ -30,7 +31,7 @@ class FiboJob(val config: Config, val n: Long) extends Job with Requester
     }
 
     resultMap.putIfAbsent(n, result)
-    responseQueue.add((n, result))
+    result
   }
 
   private def getNearestRightMostResult(n: Long, results: util.TreeSet[Long], nearestLeftMostResult: Option[Long]): Option[Long] =
