@@ -17,7 +17,7 @@ class FiboJob(val config: Config, val n: Long) extends Job with Requester
     responseQueue.add((n, result))
   }
 
-  def calculate: Long =
+  private def calculate: Long =
   {
     val results = new util.TreeSet[Long](resultMap.keySet())
     val nearestLeftMostResult = Option(results.floor(n - 1))

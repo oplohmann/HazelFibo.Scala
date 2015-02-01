@@ -14,9 +14,9 @@ object Consumer {
 
 class Consumer(override val config: Config) extends Requester
 {
-  def start = new Thread { spawn }.start  
-  
-  def spawn: Unit = 
+  def start = new Thread { spawn }.start
+
+  private def spawn: Unit =
   {
     while(true) 
     {
