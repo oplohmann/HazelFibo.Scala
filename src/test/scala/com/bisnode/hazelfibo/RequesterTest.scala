@@ -2,6 +2,7 @@ package com.bisnode.hazelfibo
 
 import java.util.concurrent.TimeUnit
 
+import com.hazelcast.core.Hazelcast
 import org.junit.{After, Before, Test}
 import org.scalatest.junit.AssertionsForJUnit
 
@@ -25,8 +26,9 @@ class RequesterTest extends AssertionsForJUnit
       new Consumer(RequesterTest.RequestQueueId))
   }
   
-  @Before def startup 
+  @Before def startup: Unit =
   {
+    Hazelcast.newHazelcastInstance()
   }
 
   @After def shudown

@@ -11,7 +11,7 @@ object Consumer {
   
 }
 
-class Consumer(override protected val requestQueueId: String) extends Requester with HazelInstance 
+class Consumer(override protected val requestQueueId: String) extends Requester
 {
   def start = new Thread { spawn }.start  
   

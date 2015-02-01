@@ -20,7 +20,7 @@ object Producer {
   
 }
 
-class Producer(override protected val requestQueueId: String, override protected val responseQueueId: String) extends Requester with Responder with HazelInstance 
+class Producer(override protected val requestQueueId: String, override protected val responseQueueId: String) extends Requester with Responder
 {
 
     def calculate(fibonacciNumbers: List[Int]): Producer = 

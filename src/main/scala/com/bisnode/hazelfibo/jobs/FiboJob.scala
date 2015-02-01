@@ -7,7 +7,7 @@ class FiboJob(val responseQueueId: String, val n: Long) extends Job with HazelIn
 {
   def isShutdown = false
   
-  protected lazy val responseQueue: IQueue[(Long, Long)] = hazelcastInstance.getQueue(responseQueueId)
+  protected lazy val responseQueue: IQueue[(Long, Long)] = hazelcastClient.getQueue(responseQueueId)
   
   def run: Unit = {
     responseQueue.add((n, fibonacci(n)))

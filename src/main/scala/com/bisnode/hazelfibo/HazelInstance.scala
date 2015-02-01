@@ -1,9 +1,10 @@
 package com.bisnode.hazelfibo
 
-import com.hazelcast.core.Hazelcast
+import com.hazelcast.client.HazelcastClient
+import com.hazelcast.client.config.ClientConfig
 
 trait HazelInstance {
 
-  protected lazy val hazelcastInstance = Hazelcast.newHazelcastInstance
+  def hazelcastClient = HazelcastClient.newHazelcastClient(new ClientConfig())
   
 }

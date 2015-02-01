@@ -7,5 +7,5 @@ trait Responder extends HazelInstance
 {
   protected val responseQueueId: String
   
-  protected lazy val responseQueue: IQueue[(Long, Long)] = hazelcastInstance.getQueue(responseQueueId)
+  protected lazy val responseQueue: IQueue[(Long, Long)] = hazelcastClient.getQueue(responseQueueId)
 }

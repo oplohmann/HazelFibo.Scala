@@ -8,6 +8,6 @@ trait Requester extends HazelInstance
 
   protected val requestQueueId: String
   
-  protected lazy val requestQueue: IQueue[Job] = hazelcastInstance.getQueue(requestQueueId)
+  protected lazy val requestQueue: IQueue[Job] = hazelcastClient.getQueue(requestQueueId)
   
 }
