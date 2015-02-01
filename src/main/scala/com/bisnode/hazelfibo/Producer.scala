@@ -1,9 +1,10 @@
 package com.bisnode.hazelfibo
 
-import com.bisnode.hazelfibo.jobs.FiboJob
+import com.bisnode.hazelfibo.jobs.{Job, FiboJob, ShutdownJob}
+import com.bisnode.hazelfibo.utils.Config
 
 import com.bisnode.hazelfibo.utils.TimesUtil._
-import com.bisnode.hazelfibo.jobs.ShutdownJob
+import com.hazelcast.core.IQueue
 import org.slf4j.{LoggerFactory, Logger}
 
 object Producer {
@@ -20,12 +21,12 @@ object Producer {
   
 }
 
-class Producer(override protected val requestQueueId: String, override protected val responseQueueId: String) extends Requester with Responder
+class Producer(override val config: Config) extends Requester
 {
 
-    def calculate(fibonacciNumbers: List[Int]): Producer = 
+    def calculate(fibonacciNumbers: List[Int]): Producer =
     {
-      fibonacciNumbers foreach { n => requestQueue.add(new FiboJob(responseQueueId, n)) }  
+      fibonacciNumbers foreach { n => requestQueue.add(new FiboJob(config, n)) }
       this
     }
     

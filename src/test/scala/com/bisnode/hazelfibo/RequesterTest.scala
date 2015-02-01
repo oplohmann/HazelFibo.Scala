@@ -1,7 +1,6 @@
 package com.bisnode.hazelfibo
 
-import java.util.concurrent.TimeUnit
-
+import com.bisnode.hazelfibo.utils.Config
 import com.hazelcast.core.Hazelcast
 import org.junit.{After, Before, Test}
 import org.scalatest.junit.AssertionsForJUnit
@@ -10,6 +9,7 @@ object RequesterTest
 {
   val RequestQueueId = "FiboRequestQueue" 
   val ResponseQueueId = "FiboResponseQueue"
+  val ResultMapId = "FiboResultMap"
 }
 
 @Test
@@ -17,13 +17,17 @@ class RequesterTest extends AssertionsForJUnit
 {
   
   val consumers = initialConsumers
-  val producer = new Producer(RequesterTest.RequestQueueId, RequesterTest.ResponseQueueId)
-  
+  val producer = new Producer(config)
+
+  private lazy val config: Config = {
+    new Config(
+      RequesterTest.RequestQueueId,
+      RequesterTest.ResponseQueueId,
+      RequesterTest.ResultMapId)
+  }
+
   private lazy val initialConsumers: List[Consumer] = {
-    List(
-      new Consumer(RequesterTest.RequestQueueId),
-      new Consumer(RequesterTest.RequestQueueId),
-      new Consumer(RequesterTest.RequestQueueId))
+    List(new Consumer(config), new Consumer(config), new Consumer(config))
   }
   
   @Before def startup: Unit =
@@ -42,7 +46,7 @@ class RequesterTest extends AssertionsForJUnit
   
   @Test def startProducer =
   {
-    Producer.Start(producer, consumers.size, List(5, 7, 9))
+    Producer.Start(producer, consumers.size, List(5, 7, 9, 5, 12, 4, 14, 6, 8, 10, 11, 4, 3))
   }
 
 }

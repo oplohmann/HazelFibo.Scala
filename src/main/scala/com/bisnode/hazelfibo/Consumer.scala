@@ -1,5 +1,6 @@
 package com.bisnode.hazelfibo
 
+import com.bisnode.hazelfibo.utils.Config
 import com.hazelcast.core.Hazelcast
 import org.slf4j.{LoggerFactory, Logger}
 
@@ -11,7 +12,7 @@ object Consumer {
   
 }
 
-class Consumer(override protected val requestQueueId: String) extends Requester
+class Consumer(override val config: Config) extends Requester
 {
   def start = new Thread { spawn }.start  
   
