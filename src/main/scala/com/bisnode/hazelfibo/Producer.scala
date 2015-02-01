@@ -36,9 +36,9 @@ class Producer(override protected val requestQueueId: String, override protected
         Producer.LOG.info("Fibonacci number of " + result._1 + " is: " + result._2)
       }
 
-      Producer.LOG.info("sending shutdown jobs")
+      Producer.LOG.info("Sending shutdown jobs to consumers ...")
       numberOfConsumbers times { requestQueue.add(new ShutdownJob) }
-      Producer.LOG.info("done sending shutdown jobs")
+      Producer.LOG.info("Done sending shutdown jobs.")
     }
   
 }
